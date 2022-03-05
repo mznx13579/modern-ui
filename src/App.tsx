@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { SampleProvider } from './SampleContext';
+import ReducerSample from './ReducerSample';
 
 
 function App() {
@@ -20,6 +22,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <SampleProvider>
+        <ReducerSample />
+      </SampleProvider>
     </div>
   );
 }
