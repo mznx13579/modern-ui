@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import { SampleProvider } from './SampleContext';
 import ReducerSample from './ReducerSample';
+import CounterContainer from './containers/CounterContainer';
+import TodoApp from './containers/TodoApp';
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
       <SampleProvider>
         <ReducerSample />
       </SampleProvider>
+      <CounterContainer />
+      <TodoApp />
     </div>
   );
 }
