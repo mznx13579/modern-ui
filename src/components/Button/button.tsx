@@ -24,5 +24,49 @@ function isReactFragment(node: React.ReactNode) {
 }
 
 function insertSpace(child: React.ReactChild, needInserted: boolean) {
-  
+  if(child === null) return;
+
+  const SPACE = needInserted ? ' ' : '';
+
+  if(
+    typeof child !== 'string' &&
+    typeof child !== 'number' &&
+    isString(child.type)
+  ) {
+    return cloneElement(child, {
+      children: child.props.children.split('').join(SPACE);
+    });
+  }
+
+  if(isReactFragment(child)) {
+    return <span>{child}</span>
+  }
+  return child;
+}
+
+const ButtonTypes = tuple('default', 'primary', 'ghost', 'dashed', 'link', 'text');
+export type ButtonType = typeof ButtonTypes[number];
+const ButtonShapes = tuple('default', 'circle', 'round');
+export type ButtonShape = typeof ButtonShapes[number];
+const ButtonHTMLTypes = tuple('submit', 'button', 'reset');
+export type ButtonHTMLType = typeof ButtonHTMLTypes[number];
+
+export type LegacyButtonType = ButtonType | 'danger';
+export function convertLegacyProps(type?: LegacyButtonType): ButtonProps {
+  if(type === 'danger') return {danger: true};
+  return {type};
+}
+
+export interface BaseButtonProps {
+  type?: ButtonType;
+  icon?: React.ReactNode;
+  shape?: ButtonShape;
+  size?: SizeType;
+  loading?: boolean | { delay?: number };
+  prefixCls?: string;
+  className?: string;
+  ghost?: boolean;
+  danger?: boolean;
+  block?: boolean;
+  children?: React.ReactNode;
 }
